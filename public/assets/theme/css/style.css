@@ -4214,6 +4214,9 @@
     line-height: 1.35;
     font-weight: 700;
 }
+.customer-support-panel .installment-section-title {
+    margin: 0px;
+}
 
 .membership-benefit-item {
     width: 100%;
@@ -4250,7 +4253,7 @@
 }
 
 .customer-support-content {
-    padding-right: 155px;
+    padding-right: 135px;
 }
 
 .customer-support-content p {
@@ -4848,4 +4851,40 @@
         font-size: 12px;
     }
 
+}
+
+/* =====================================================
+   BOOTSTRAP MAIN LAYOUT REFACTOR
+   Keeps the old visual width/spacing while main uses Bootstrap .container
+===================================================== */
+.container.site-container {
+    width: min(1280px, calc(100% - 28px));
+    max-width: 1280px !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* The old product band lived outside .container-site.
+   Break it out to full viewport width while keeping its content aligned
+   exactly with the old 1280px container. */
+.container.site-container > .product-section-band {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: max(14px, calc((100vw - 1280px) / 2));
+    padding-right: max(14px, calc((100vw - 1280px) / 2));
+}
+
+@media (max-width: 767px) {
+    .container.site-container {
+        width: calc(100% - 16px);
+        max-width: none !important;
+    }
+
+    .container.site-container > .product-section-band {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 }

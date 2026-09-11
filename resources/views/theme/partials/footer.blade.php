@@ -12,11 +12,6 @@
                         <a aria-label="YouTube" href="#"><i class="fa-brands fa-youtube"></i></a>
                         <a aria-label="LinkedIn" href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
-                    <div class="footer-newsletter">
-                        <strong>অফার ও আপডেট পেতে</strong>
-                        <div><input placeholder="আপনার ইমেইল" type="email" aria-label="আপনার ইমেইল" autocomplete="email" /><button type="button" aria-label="ইমেইল সাবমিট করুন"><i
-                                    class="fa-solid fa-paper-plane" aria-hidden="true"></i></button></div>
-                    </div>
                 </div>
                 <div class="footer-col col-6 col-md-4 col-lg-2">
                     <h3>শপিং</h3>
@@ -44,15 +39,12 @@
                 </div>
                 <div class="footer-contact-col col-12 col-md-6 col-lg-2">
                     <h3>যোগাযোগ</h3>
-                    <a href="tel:01733206458"><i
-                            class="fa-solid fa-phone"></i><span><small>হটলাইন</small>01733-206458</span></a>
-                    <a href="mailto:support@bondongroup.com"><i
-                            class="fa-solid fa-envelope"></i><span><small>ইমেইল</small>support@bondongroup.com</span></a>
-                    <div class="footer-contact-row"><i
-                            class="fa-solid fa-location-dot"></i><span><small>ঠিকানা</small>Bangladesh</span></div>
-                    <div class="footer-payments-title">পেমেন্ট মাধ্যম</div>
-                    <div class="footer-payments">
-                        <span>bKash</span><span>Nagad</span><span>Rocket</span><span>VISA</span><span>Mastercard</span>
+                    <a href="tel:01733206458">
+                        <i class="fa-solid fa-phone"></i><span><small>হটলাইন</small>01733-206458</span></a>
+                    <a href="mailto:support@bondongroup.com">
+                        <i class="fa-solid fa-envelope"></i><span><small>ইমেইল</small>support@bondongroup.com</span></a>
+                    <div class="footer-contact-row">
+                        <i class="fa-solid fa-location-dot"></i><span><small>ঠিকানা</small>Bangladesh</span>
                     </div>
                 </div>
             </div>

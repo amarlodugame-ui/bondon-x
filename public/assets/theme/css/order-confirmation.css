@@ -1,0 +1,58 @@
+/* Adapted from the supplied design; scoped to this page. */
+
+.confirmation-page{
+  --primary:#0a4fc9;--primary-dark:#083d9a;--green:#18a64b;--green-soft:#ebf8ef;
+  --purple:#7d36e9;--orange:#ff6a1d;--text:#24324a;--muted:#7b879c;
+  --border:#e5eaf2;--bg:#f7f9fc;--white:#fff;--shadow:0 2px 8px rgba(17,34,68,.05);
+}
+.confirmation-page *{box-sizing:border-box}
+.confirmation-page{margin:0;font-family:"Hind Siliguri",sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.confirmation-page a{text-decoration:none;color:inherit}
+.confirmation-page .page{width:min(760px,100%);margin:0 auto;padding:12px 10px 28px}
+.confirmation-page .breadcrumb{font-size:11px;color:var(--muted);margin-bottom:8px}
+.confirmation-page .steps{display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;align-items:center;gap:3px;margin-bottom:10px}
+.confirmation-page .step{min-height:30px;border:1px solid var(--border);border-radius:6px;background:#fff;display:flex;justify-content:center;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:var(--muted)}
+.confirmation-page .step.done{color:var(--green);border-color:#cfead8;background:#fbfffc}
+.confirmation-page .step.active{color:var(--primary);border-color:#b7cdf3;background:#f5f9ff}
+.confirmation-page .line{height:1px;background:#d4dce8}
+.confirmation-page .success-card{background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);padding:18px 16px;text-align:center;animation:cardIn .35s ease both}
+@keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.confirmation-page .success-icon{width:52px;height:52px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;color:#fff;background:var(--green);font-size:25px;box-shadow:0 0 0 8px var(--green-soft);animation:pop .45s ease .08s both}
+@keyframes pop{0%{transform:scale(.75);opacity:0}70%{transform:scale(1.07)}100%{transform:scale(1);opacity:1}}
+.confirmation-page .success-card h1{margin:10px 0 0;font-size:23px;line-height:1.2}
+.confirmation-page .success-card .sub{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+.confirmation-page .order-meta,.confirmation-page .money-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.confirmation-page .order-meta{margin-top:13px}
+.confirmation-page .money-grid{margin-top:6px}
+.confirmation-page .meta-box,.confirmation-page .money-box{border-radius:7px;padding:8px 9px;text-align:left}
+.confirmation-page .meta-box{border:1px solid var(--border);background:#fbfcfe}
+.confirmation-page .meta-box span,.confirmation-page .money-box span{display:block;color:var(--muted);font-size:9.5px}
+.confirmation-page .meta-box strong{display:block;margin-top:2px;font-size:13px}
+.confirmation-page .money-box{padding:10px}
+.confirmation-page .money-box.debit{background:#eef4ff;border:1px solid #cfe0fb}
+.confirmation-page .money-box.balance{background:var(--green-soft);border:1px solid #cfead8}
+.confirmation-page .money-box strong{display:block;margin-top:2px;font-size:20px;line-height:1.1}
+.confirmation-page .money-box.debit strong{color:var(--primary)}
+.confirmation-page .money-box.balance strong{color:var(--green)}
+.confirmation-page .notice{margin-top:9px;border:1px solid #ead8b8;background:#fffaf1;border-radius:7px;padding:9px 10px;display:flex;gap:8px;text-align:left;color:#72511d;font-size:10.5px;line-height:1.45}
+.confirmation-page .notice i{color:var(--orange);margin-top:1px}
+.confirmation-page .notice strong{display:block;color:#5b4118;margin-bottom:1px;font-size:11px}
+.confirmation-page .summary{margin-top:9px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.confirmation-page .summary-row{min-height:38px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #edf1f5;font-size:11px;color:#607087}
+.confirmation-page .summary-row:last-child{border-bottom:0}
+.confirmation-page .summary-row strong{text-align:right;color:#26354b;font-size:11px}
+.confirmation-page .pending{color:#a35d12!important}.confirmation-page .paid{color:var(--green)!important}
+.confirmation-page .actions{margin-top:10px;display:grid;grid-template-columns:1.25fr 1fr;gap:6px}
+.confirmation-page .btn{min-height:40px;border-radius:7px;border:1px solid #d7e0eb;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 10px;background:#fff;color:#344760;font-size:11.5px;font-weight:700;transition:.18s ease}
+.confirmation-page .btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(17,34,68,.08)}
+.confirmation-page .btn.primary{grid-column:1/-1;background:var(--primary);border-color:var(--primary);color:#fff}
+.confirmation-page .btn.green{color:var(--green);border-color:#c8e4d1;background:#fbfffc}
+@media(max-width:560px){
+  .confirmation-page .page{padding:8px 7px 18px}.confirmation-page .steps{grid-template-columns:1fr 18px 1fr 18px 1fr;margin-bottom:7px}.confirmation-page .step{min-height:27px;font-size:9.5px;gap:3px}.confirmation-page .step i{display:none}
+  .confirmation-page .success-card{padding:14px 10px}.confirmation-page .success-icon{width:46px;height:46px;font-size:22px;box-shadow:0 0 0 6px var(--green-soft)}
+  .confirmation-page .success-card h1{font-size:20px}.confirmation-page .success-card .sub{font-size:11px}.confirmation-page .order-meta,.confirmation-page .money-grid{gap:5px}.confirmation-page .meta-box,.confirmation-page .money-box{padding:7px}.confirmation-page .meta-box strong{font-size:12px}.confirmation-page .money-box strong{font-size:17px}
+  .confirmation-page .notice{padding:8px;font-size:10px}.confirmation-page .summary-row{min-height:35px;font-size:10.5px}.confirmation-page .summary-row strong{font-size:10.5px}.confirmation-page .actions{grid-template-columns:1fr 1fr}.confirmation-page .btn{min-height:38px;font-size:11px;padding:0 7px}
+}
+@media(prefers-reduced-motion:reduce){.confirmation-page *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.confirmation-page{padding-bottom:30px}.confirmation-page .receipt-panel{margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:9px;font-size:12px;scroll-margin-top:85px}.confirmation-page .receipt-panel>summary{padding:14px;cursor:pointer;color:var(--primary);font-weight:600;overflow-wrap:anywhere}.confirmation-page .receipt-body{padding:16px}.confirmation-page .receipt-head{display:flex;align-items:center;justify-content:space-between}.confirmation-page .receipt-head h2{font-size:19px}.confirmation-page .receipt-head p{color:var(--muted);font-size:12px}.confirmation-page .receipt-address{margin:15px 0}.confirmation-page .receipt-address p{line-height:1.7;margin-top:5px}.confirmation-page .receipt-table-wrap{overflow:auto}.confirmation-page .receipt-table{width:100%;border-collapse:collapse;font-size:11px}.confirmation-page .receipt-table th,.confirmation-page .receipt-table td{padding:9px 7px;text-align:left;border-bottom:1px solid var(--border)}.confirmation-page .receipt-table th{background:#f5f8fc}.confirmation-page .receipt-table small{display:block;font-size:10px;color:var(--muted);margin-top:4px}.confirmation-page .receipt-note{margin:15px 0}.confirmation-page .receipt-body h3{font-size:17px;margin:22px 0 12px}.confirmation-page .summary-row strong{overflow-wrap:anywhere;min-width:0}.confirmation-page .meta-box strong{overflow-wrap:anywhere}.confirmation-page .order-history-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border);font-size:11px}.confirmation-page .order-history-row>span{min-width:0;overflow-wrap:anywhere}.confirmation-page .order-history-row small{display:block;color:var(--muted);margin-top:4px}.confirmation-page .history-pagination{display:flex;justify-content:center;gap:20px;padding-top:12px;color:var(--primary)}.confirmation-page :focus-visible{outline:3px solid #94baff;outline-offset:2px}@media print{body>header,.site-header,.site-footer,.mobile-bottom-nav,.mobile-menu,.confirmation-page .steps,.confirmation-page .breadcrumb,.confirmation-page .actions,.confirmation-page #orderHistory,.confirmation-page #printReceipt{display:none!important}.confirmation-page .page{width:100%;max-width:none}.confirmation-page .success-card,.confirmation-page .receipt-panel{box-shadow:none;border:0}.confirmation-page .receipt-table-wrap{overflow:visible}.confirmation-page .receipt-body{display:block!important}.confirmation-page .receipt-panel::details-content{content-visibility:visible}.confirmation-page .receipt-panel>summary{display:none}}

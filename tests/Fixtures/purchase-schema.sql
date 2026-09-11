@@ -1,0 +1,411 @@
+-- Test-only SQLite schema adapted from the supplied SQL structure. No customer data.
+CREATE TABLE "users" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"member_no" TEXT NOT NULL,
+"name" TEXT NOT NULL,
+"balance" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"saving_balance" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"mobile" TEXT NOT NULL,
+"is_member" INTEGER NOT NULL DEFAULT 0,
+"email" TEXT DEFAULT NULL,
+"password" TEXT NOT NULL,
+"remember_token" TEXT DEFAULT NULL,
+"profile_image" TEXT DEFAULT NULL,
+"referral_code" TEXT NOT NULL,
+"referred_by" INTEGER DEFAULT NULL,
+"email_verified" INTEGER NOT NULL DEFAULT 0,
+"phone_verified" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 0,
+"is_deleted" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "general_settings" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"site_name" TEXT NOT NULL,
+"logo" TEXT DEFAULT NULL,
+"favicon" TEXT DEFAULT NULL,
+"address" TEXT DEFAULT NULL,
+"phone" TEXT DEFAULT NULL,
+"email" TEXT DEFAULT NULL,
+"cur_text" TEXT DEFAULT 'BDT',
+"cur_sym" TEXT DEFAULT '৳',
+"registration" INTEGER NOT NULL DEFAULT 1,
+"signup_bonus_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"order_prefix" TEXT NOT NULL DEFAULT 'ORD',
+"invoice_prefix" TEXT NOT NULL DEFAULT 'INV',
+"cash_order_auto_approve" INTEGER NOT NULL DEFAULT 1,
+"installment_admin_approval" INTEGER NOT NULL DEFAULT 1,
+"membership_fee" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"currency_format" INTEGER NOT NULL DEFAULT 1,
+"maintenance_mode" INTEGER NOT NULL DEFAULT 0,
+"maintenance_content" TEXT DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "categories" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"slug" TEXT NOT NULL,
+"image" TEXT DEFAULT NULL,
+"show_on_home" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "brands" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"slug" TEXT NOT NULL,
+"image" TEXT DEFAULT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "products" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"category_id" INTEGER NOT NULL,
+"sub_category_id" INTEGER DEFAULT NULL,
+"brand_id" INTEGER DEFAULT NULL,
+"name" TEXT NOT NULL,
+"slug" TEXT NOT NULL,
+"sku" TEXT DEFAULT NULL,
+"image" TEXT DEFAULT NULL,
+"images" TEXT DEFAULT NULL,
+"short_description" TEXT DEFAULT NULL,
+"description" TEXT DEFAULT NULL,
+"cost_price" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"price" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"old_price" DECIMAL(15,2) DEFAULT NULL,
+"stock" INTEGER NOT NULL DEFAULT 0,
+"has_variant" INTEGER NOT NULL DEFAULT 0,
+"installment_enabled" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "product_variants" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"product_id" INTEGER NOT NULL,
+"sku" TEXT DEFAULT NULL,
+"price" DECIMAL(15,2) DEFAULT NULL,
+"cost_price" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"old_price" DECIMAL(15,2) DEFAULT NULL,
+"stock" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "attributes" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"slug" TEXT NOT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "attribute_values" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"attribute_id" INTEGER NOT NULL,
+"value" TEXT NOT NULL,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "variant_attribute_values" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"product_variant_id" INTEGER NOT NULL,
+"attribute_value_id" INTEGER NOT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "flash_sales" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"product_id" INTEGER NOT NULL,
+"sale_price" DECIMAL(15,2) NOT NULL,
+"starts_at" TEXT NOT NULL,
+"ends_at" TEXT NOT NULL,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "product_reviews" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"product_id" INTEGER NOT NULL,
+"order_id" INTEGER DEFAULT NULL,
+"rating" INTEGER NOT NULL,
+"review" TEXT DEFAULT NULL,
+"status" TEXT NOT NULL DEFAULT 'pending',
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "installment_plans" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"interval_unit" TEXT NOT NULL,
+"interval_value" INTEGER NOT NULL DEFAULT 1,
+"installment_count" INTEGER NOT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "product_installment_plans" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"product_id" INTEGER NOT NULL,
+"product_variant_id" INTEGER DEFAULT NULL,
+"installment_plan_id" INTEGER NOT NULL,
+"installment_total" DECIMAL(15,2) NOT NULL,
+"down_payment" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"installment_amount" DECIMAL(15,2) NOT NULL,
+"grace_days" INTEGER NOT NULL DEFAULT 0,
+"late_fee_type" TEXT DEFAULT NULL,
+"late_fee_value" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "carts" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "cart_items" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"cart_id" INTEGER NOT NULL,
+"product_id" INTEGER NOT NULL,
+"product_variant_id" INTEGER DEFAULT NULL,
+"quantity" INTEGER NOT NULL DEFAULT 1,
+"purchase_mode" TEXT NOT NULL DEFAULT 'cash',
+"product_installment_plan_id" INTEGER DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "user_addresses" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"label" TEXT DEFAULT NULL,
+"name" TEXT NOT NULL,
+"mobile" TEXT NOT NULL,
+"address" TEXT NOT NULL,
+"area" TEXT DEFAULT NULL,
+"district" TEXT DEFAULT NULL,
+"postal_code" TEXT DEFAULT NULL,
+"is_default" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "shipping_methods" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"code" TEXT NOT NULL,
+"charge" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "shipping_zones" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"districts" TEXT DEFAULT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "shipping_zone_rates" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"shipping_zone_id" INTEGER NOT NULL,
+"shipping_method_id" INTEGER NOT NULL,
+"charge" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "coupons" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"code" TEXT NOT NULL,
+"discount_type" TEXT NOT NULL,
+"discount_value" DECIMAL(15,2) NOT NULL,
+"minimum_order" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"maximum_discount" DECIMAL(15,2) DEFAULT NULL,
+"usage_limit" INTEGER DEFAULT NULL,
+"per_user_limit" INTEGER NOT NULL DEFAULT 1,
+"starts_at" TEXT DEFAULT NULL,
+"expires_at" TEXT DEFAULT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "coupon_usages" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"coupon_id" INTEGER NOT NULL,
+"user_id" INTEGER NOT NULL,
+"order_id" INTEGER NOT NULL,
+"discount_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "orders" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"order_no" TEXT NOT NULL,
+"user_id" INTEGER NOT NULL,
+"payment_mode" TEXT NOT NULL,
+"product_installment_plan_id" INTEGER DEFAULT NULL,
+"subtotal" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"cash_items_total" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"installment_items_total" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"initial_payable_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"discount_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"shipping_charge" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"grand_total" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"installment_total" DECIMAL(15,2) DEFAULT NULL,
+"down_payment" DECIMAL(15,2) DEFAULT NULL,
+"balance_used" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"paid_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"remaining_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"payment_status" TEXT NOT NULL DEFAULT 'unpaid',
+"order_status" TEXT NOT NULL DEFAULT 'payment_pending',
+"shipping_status" TEXT NOT NULL DEFAULT 'not_ready',
+"shipping_method_id" INTEGER DEFAULT NULL,
+"shipping_name" TEXT NOT NULL,
+"shipping_mobile" TEXT NOT NULL,
+"shipping_address" TEXT NOT NULL,
+"shipping_area" TEXT DEFAULT NULL,
+"shipping_district" TEXT DEFAULT NULL,
+"courier_name" TEXT DEFAULT NULL,
+"tracking_number" TEXT DEFAULT NULL,
+"customer_note" TEXT DEFAULT NULL,
+"admin_note" TEXT DEFAULT NULL,
+"approved_by" INTEGER DEFAULT NULL,
+"approved_at" TEXT DEFAULT NULL,
+"rejected_by" INTEGER DEFAULT NULL,
+"rejected_at" TEXT DEFAULT NULL,
+"reject_reason" TEXT DEFAULT NULL,
+"cancelled_at" TEXT DEFAULT NULL,
+"completed_at" TEXT DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "order_items" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"order_id" INTEGER NOT NULL,
+"product_id" INTEGER NOT NULL,
+"product_variant_id" INTEGER DEFAULT NULL,
+"product_name" TEXT NOT NULL,
+"sku" TEXT DEFAULT NULL,
+"quantity" INTEGER NOT NULL DEFAULT 1,
+"unit_price" DECIMAL(15,2) NOT NULL,
+"total_price" DECIMAL(15,2) NOT NULL,
+"purchase_mode" TEXT NOT NULL DEFAULT 'cash',
+"product_installment_plan_id" INTEGER DEFAULT NULL,
+"installment_plan_name" TEXT DEFAULT NULL,
+"installment_total" DECIMAL(15,2) DEFAULT NULL,
+"down_payment" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"installment_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"installment_count" INTEGER DEFAULT NULL,
+"interval_unit" TEXT DEFAULT NULL,
+"interval_value" INTEGER DEFAULT NULL,
+"grace_days" INTEGER NOT NULL DEFAULT 0,
+"late_fee_type" TEXT DEFAULT NULL,
+"late_fee_value" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"initial_payable" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "order_addresses" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"order_id" INTEGER NOT NULL,
+"name" TEXT NOT NULL,
+"mobile" TEXT NOT NULL,
+"address" TEXT NOT NULL,
+"area" TEXT DEFAULT NULL,
+"district" TEXT DEFAULT NULL,
+"postal_code" TEXT DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "installments" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"order_id" INTEGER NOT NULL,
+"order_item_id" INTEGER DEFAULT NULL,
+"installment_no" INTEGER NOT NULL,
+"due_date" TEXT NOT NULL,
+"amount" DECIMAL(15,2) NOT NULL,
+"late_fee_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"balance_used" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"paid_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"transaction_id" INTEGER DEFAULT NULL,
+"status" TEXT NOT NULL DEFAULT 'pending',
+"paid_at" TEXT DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "transactions" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"amount" DECIMAL(15,2) NOT NULL,
+"charge" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"post_balance" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"trx_type" TEXT NOT NULL,
+"trx" TEXT NOT NULL,
+"details" TEXT DEFAULT NULL,
+"remark" TEXT DEFAULT NULL,
+"wallet_type" TEXT NOT NULL,
+"reference_type" TEXT DEFAULT NULL,
+"reference_id" INTEGER DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "payment_methods" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"name" TEXT NOT NULL,
+"code" TEXT NOT NULL,
+"image" TEXT DEFAULT NULL,
+"account_number" TEXT NOT NULL,
+"account_name" TEXT DEFAULT NULL,
+"instructions" TEXT DEFAULT NULL,
+"minimum_amount" DECIMAL(15,2) NOT NULL DEFAULT 0.00,
+"maximum_amount" DECIMAL(15,2) DEFAULT NULL,
+"status" INTEGER NOT NULL DEFAULT 1,
+"sort_order" INTEGER NOT NULL DEFAULT 0,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "deposits" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"payment_method_id" INTEGER NOT NULL,
+"wallet_type" TEXT NOT NULL DEFAULT 'balance',
+"amount" DECIMAL(15,2) NOT NULL,
+"payer_mobile" TEXT NOT NULL,
+"transaction_id" TEXT NOT NULL,
+"screenshot" TEXT DEFAULT NULL,
+"status" INTEGER NOT NULL DEFAULT 0,
+"reject_reason" TEXT DEFAULT NULL,
+"reviewed_by" INTEGER DEFAULT NULL,
+"reviewed_at" TEXT DEFAULT NULL,
+"approved_transaction_id" INTEGER DEFAULT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "wishlists" (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+"user_id" INTEGER NOT NULL,
+"product_id" INTEGER NOT NULL,
+"created_at" TEXT DEFAULT CURRENT_TIMESTAMP,
+"updated_at" TEXT DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX carts_user ON carts (user_id);
+CREATE UNIQUE INDEX orders_no ON orders (order_no);
+CREATE UNIQUE INDEX trx_unique ON transactions (trx);
+CREATE UNIQUE INDEX coupon_code ON coupons (code);
+CREATE UNIQUE INDEX deposit_trx ON deposits (payment_method_id, transaction_id);
+CREATE UNIQUE INDEX wishlist_unique ON wishlists (user_id, product_id);
