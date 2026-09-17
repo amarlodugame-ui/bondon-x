@@ -1,0 +1,14 @@
+        :root {
+            --primary: #0a4fc9;
+            --primary-dark: #083d9a;
+            --green: #18a64b;
+            --green-soft: #ebf8ef;
+            --purple: #7d36e9;
+            --orange: #ff6a1d;
+            --text: #24324a;
+            --muted: #7b879c;
+            --border: #e5eaf2;
+            --bg: #ffffff;
+            --white: #ffffff;
+            --shadow: 0 2px 8px rgba(17, 34, 68, .05);
+        }

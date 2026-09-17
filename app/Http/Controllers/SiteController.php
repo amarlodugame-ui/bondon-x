@@ -83,7 +83,62 @@ class SiteController extends Controller
 
         return view('theme.home', $data);
     }
+    public function productSuggestions(Request $request)
+    {
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:160'],
+        ]);
 
+        $search = trim($validated['search'] ?? '');
+
+        if (mb_strlen($search) < 2) {
+            return response()->json([
+                'products' => [],
+            ]);
+        }
+
+        $products = Product::query()
+            ->where('status', 1)
+            ->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('sku', 'like', "%{$search}%");
+            })
+            ->orderByRaw(
+                'CASE
+                    WHEN name LIKE ? THEN 0
+                    WHEN sku LIKE ? THEN 1
+                    ELSE 2
+                END',
+                [
+                    $search . '%',
+                    $search . '%',
+                ]
+            )
+            ->orderByDesc('id')
+            ->limit(6)
+            ->get([
+                'id',
+                'name',
+                'slug',
+                'sku',
+            ])
+            ->map(function ($product) {
+                return [
+                    'id'   => $product->id,
+                    'name' => $product->name,
+                    'sku'  => $product->sku,
+
+                    'url' => route('product.show', [
+                        'product' => $product->slug,
+                    ]),
+                ];
+            })
+            ->values();
+
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
     public function products(Request $request)
     {
         $filters = $request->validate([
@@ -196,8 +251,7 @@ class SiteController extends Controller
         $data = [
             'pageTitle' => $pageTitle,
             'products' => $products,
-            'categories' => Category::where('status', 1)->select(['id', 'name', 'slug'])
-                ->withCount(['products' => fn ($query) => $query->where('status', 1)])->orderBy('sort_order')->get(),
+            'categories' => Category::where('status', 1)->select(['id', 'name', 'slug'])->withCount(['products' => fn ($query) => $query->where('status', 1)])->orderBy('sort_order')->get(),
             'brands' => Brand::where('status', 1)->select(['id', 'name', 'slug'])
                 ->withCount(['products' => $countProducts])->orderBy('sort_order')->get(),
             'attributes' => Attribute::where('status', 1)->with(['values' => fn ($query) => $query

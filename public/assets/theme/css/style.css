@@ -1,24 +1,4 @@
-       /* =====================================================
-           ROOT
-        ===================================================== */
-        :root {
-            --primary: #0a4fc9;
-            --primary-dark: #083d9a;
-            --green: #18a64b;
-            --green-soft: #ebf8ef;
-            --purple: #7d36e9;
-            --orange: #ff6a1d;
-            --text: #24324a;
-            --muted: #7b879c;
-            --border: #e5eaf2;
-            --bg: #ffffff;
-            --white: #ffffff;
-            --shadow: 0 2px 8px rgba(17, 34, 68, .05);
-        }
 
-        /* =====================================================
-           RESET
-        ===================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -68,7 +48,7 @@
         }
 
         .header-inner {
-            height: 72px;
+            height: 55px;
             display: flex;
             align-items: center;
             gap: 18px;
@@ -105,7 +85,6 @@
         }
 
         .nav-link-item {
-            height: 72px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -216,7 +195,7 @@
 
         .mega-menu {
             position: absolute;
-            top: 72px;
+            top: 55px;
             left: -120px;
             width: 980px;
             background: #fff;
@@ -1413,7 +1392,7 @@
             }
 
             .header-inner {
-                height: 64px;
+                height: 45px;
                 gap: 10px;
             }
 
@@ -1439,7 +1418,7 @@
             }
 
             .header-inner {
-                height: 58px;
+                height: 45px;
                 gap: 8px;
             }
 

@@ -55,51 +55,118 @@
     </div>
 </section>
 <div class="discovery-stack search-only-stack">
-    <!--  MAIN SEARCH  -->
+
+    <!-- MAIN SEARCH -->
     <section class="main-search">
+
         <div class="main-search-inner">
-            <div class="main-search-box" id="mainSearch">
+
+            <form
+                class="main-search-box"
+                id="mainSearch"
+                action="{{ route('products') }}"
+                method="GET"
+                data-suggestions-url="{{ route('products.suggestions') }}"
+            >
+
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input class="search-input" placeholder="পণ্য খুঁজুন (যেমন: মোবাইল, ল্যাপটপ, ফ্রিজ...)" type="search"
-                    aria-label="পণ্য খুঁজুন" autocomplete="off" />
-                <button><span class="search-btn-text">খুঁজুন</span><i
-                        class="fa-solid fa-magnifying-glass search-btn-icon"></i></button>
-                <div class="search-dropdown">
-                    <div class="search-item"><i class="fa-solid fa-magnifying-glass"></i> Samsung Galaxy A55
-                    </div>
-                    <div class="search-item"><i class="fa-solid fa-magnifying-glass"></i> iPhone 15</div>
-                    <div class="search-item"><i class="fa-solid fa-magnifying-glass"></i> Dell Inspiron 3530
-                    </div>
-                    <div class="search-item"><i class="fa-solid fa-magnifying-glass"></i> Samsung
-                        Refrigerator</div>
-                </div>
-            </div>
+
+                <input
+                    class="search-input"
+                    name="search"
+                    placeholder="পণ্য খুঁজুন (যেমন: মোবাইল, ল্যাপটপ, ফ্রিজ...)"
+                    type="search"
+                    aria-label="পণ্য খুঁজুন"
+                    autocomplete="off"
+                    maxlength="160"
+                />
+
+                <button type="submit">
+                    <span class="search-btn-text">
+                        খুঁজুন
+                    </span>
+
+                    <i class="fa-solid fa-magnifying-glass search-btn-icon"></i>
+                </button>
+
+
+                <!-- Dynamic Search Result -->
+                <div
+                    class="search-dropdown"
+                    role="listbox"
+                    aria-label="পণ্য খোঁজার ফলাফল"
+                ></div>
+
+            </form>
+
+
+            <!-- Popular Categories -->
             <div class="popular-tags">
+
                 <span>জনপ্রিয়:</span>
+
                 @foreach($randomCategories as $category)
-                <a class="tag" href=" ">{{ $category->name }}</a>
+
+                    <a
+                        class="tag"
+                        href="{{ route('products', ['category' => $category->slug]) }}"
+                    >
+                        {{ $category->name }}
+                    </a>
+
                 @endforeach
+
             </div>
+
         </div>
+
     </section>
+
 </div>
 <!--   CATEGORY -->
 <section class="section category-section">
+
     <div class="section-head">
+
         <h2>শ্রেণি বিভাগ</h2>
-        <a href="{{ route('categories') }}">সব দেখুন <i class="fa-solid fa-chevron-right"></i></a>
+
+        <a href="{{ route('categories') }}">
+            সব দেখুন
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+
     </div>
+
+
     <div class="category-grid row row-cols-7 row-cols-lg-10 g-2">
+
         @foreach($categories as $category)
-        <div class="col category-col">
-            <a class="category-card" href="">
-                <img class="category-icon" src="{{ asset('assets/theme/images/categories/' . $category->image) }}"
-                    alt="{{ $category->name }}" />
-                <div class="category-title">{{ $category->name }}</div>
-            </a>
-        </div>
+
+            <div class="col category-col">
+
+                <a
+                    class="category-card"
+                    href="{{ route('products', ['category' => $category->slug]) }}"
+                >
+
+                    <img
+                        class="category-icon"
+                        src="{{ asset('assets/theme/images/categories/' . $category->image) }}"
+                        alt="{{ $category->name }}"
+                    />
+
+                    <div class="category-title">
+                        {{ $category->name }}
+                    </div>
+
+                </a>
+
+            </div>
+
         @endforeach
+
     </div>
+
 </section>
 <!--  PRODUCT SECTIONS  -->
 <section class="product-section-band home-product-cards">
@@ -872,26 +939,26 @@ document.addEventListener('DOMContentLoaded', () => {
 @endpush
 @push('style')
 <style>
-.carousel-inner{border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
-.hero{width:100%;margin-top:0;position:relative}.hero .carousel,.hero .carousel-inner,.hero .carousel-item,.hero .carousel-item picture{width:100%}.hero .carousel-inner{overflow:hidden}.hero .carousel-item picture{display:block}.hero .carousel-item img{display:block;width:100%;height:auto;object-fit:cover}.hero .carousel-control-prev,.hero .carousel-control-next{width:55px;opacity:1;transition:opacity .25s ease}.hero:hover .carousel-control-prev,.hero:hover .carousel-control-next{opacity:1}.hero-slider-control{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#00000059;color:#fff;font-size:13px;backdrop-filter:blur(4px);transition:.2s ease}.hero-slider-control:hover{background:#0a4fc9d9}.hero .carousel-indicators{margin-bottom:10px;gap:5px}.hero .carousel-indicators [data-bs-target]{width:7px;height:7px;margin:0;border:0;border-radius:50%;background-color:#ffffffa6;opacity:1;transition:.25s ease}.hero .carousel-indicators .active{width:22px;border-radius:10px;background-color:#fff}@media (max-width: 767px){.hero .carousel-indicators{margin-bottom:6px}.hero .carousel-indicators [data-bs-target]{width:5px;height:5px}.hero .carousel-indicators .active{width:16px}}
+    .carousel-inner{border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
+    .hero{width:100%;margin-top:0;position:relative}.hero .carousel,.hero .carousel-inner,.hero .carousel-item,.hero .carousel-item picture{width:100%}.hero .carousel-inner{overflow:hidden}.hero .carousel-item picture{display:block}.hero .carousel-item img{display:block;width:100%;height:auto;object-fit:cover}.hero .carousel-control-prev,.hero .carousel-control-next{width:55px;opacity:1;transition:opacity .25s ease}.hero:hover .carousel-control-prev,.hero:hover .carousel-control-next{opacity:1}.hero-slider-control{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#00000059;color:#fff;font-size:13px;backdrop-filter:blur(4px);transition:.2s ease}.hero-slider-control:hover{background:#0a4fc9d9}.hero .carousel-indicators{margin-bottom:10px;gap:5px}.hero .carousel-indicators [data-bs-target]{width:7px;height:7px;margin:0;border:0;border-radius:50%;background-color:#ffffffa6;opacity:1;transition:.25s ease}.hero .carousel-indicators .active{width:22px;border-radius:10px;background-color:#fff}@media (max-width: 767px){.hero .carousel-indicators{margin-bottom:6px}.hero .carousel-indicators [data-bs-target]{width:5px;height:5px}.hero .carousel-indicators .active{width:16px}}
 
-main {
-    position: relative;
-    isolation: isolate;
-}
+    main {
+        position: relative;
+        isolation: isolate;
+    }
 
-main::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100vw;
-    height: 620px;
-    transform: translateX(-50%);
-    background: url("/assets/theme/images/hero-background-small.png") top center / cover no-repeat;
-    z-index: -1;
-    pointer-events: none;
-}
+    main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100vw;
+        height: 620px;
+        transform: translateX(-50%);
+        background: url("/assets/theme/images/hero-background-small.png") top center / cover no-repeat;
+        z-index: -1;
+        pointer-events: none;
+    }
 
 </style>
 @endpush
